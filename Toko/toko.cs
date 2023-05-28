@@ -1,22 +1,13 @@
-
-
 using System;
 using System.IO;
 
-namespace toko;
+namespace toko
+{
 interface IStockOperations<T> where T : Product
     {
         void Add(T product);
         void Update(int productId, T update);
         void Remove(int productId);
-    }
-
-    class Product
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int Stock { get; set; }
     }
 
     class Stock<T> : IStockOperations<T> where T : Product
@@ -112,3 +103,4 @@ interface IStockOperations<T> where T : Product
             return products;
         }
     }
+}
