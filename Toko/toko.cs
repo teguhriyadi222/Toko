@@ -5,105 +5,111 @@ using System.IO;
 using System.Collections.Generic;
 
 namespace toko;
-class Product
-{
-    public int Id { get; set; }
-    public string Name { get; set;}
-    public decimal Price { get; set; }
-    public int Stock { get; set; }
-}
-
-class Stock<T> where T : Product
-{
-    private int productId;
-    public List<T> Products { get; set; }
-
-    private string filePath; 
-
-    public Stock(string filePath)
+interface IStockOperations<T> where T : Product
     {
-        this.filePath = filePath;
-        Products = LoadStock();
-    }
-     protected bool productName(string productname)
-    {
-
-        return Products.Any(p => p.Name == productname);
+        void Add(T product);
+        void Update(int productId, T update);
+        void Remove(int productId);
     }
 
-    public void Add(T product)
+    class Product
     {
-        if (productName(product.Name))
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        public int Stock { get; set; }
+    }
+
+    class Stock<T> : IStockOperations<T> where T : Product
+    {
+        private int productId;
+        public List<T> Products { get; set; }
+
+        private string filePath;
+
+        public Stock(string filePath)
         {
-            throw new ArgumentException("Product with the same name already exists in stock.");
+            this.filePath = filePath;
+            Products = LoadStock();
         }
-        else
-        {
-            product.Id = Products.Count + 1;
-            Products.Add(product);
-            Save();
 
+        protected bool IsProductNameExists(string productName)
+        {
+            return Products.Exists(p => p.Name == productName);
         }
-    }
 
-    public void Update(int productId, T update)
-    {
-        T product = Products.Find(p => p.Id == productId);
-
-        if (product != null)
+        public void Add(T product)
         {
-            product.Name = update.Name;
-            product.Price = update.Price;
-            product.Stock = update.Stock;
-            Save();
-        }
-    }
-
-    public void Remove(int productId)
-    {
-        Products.RemoveAll(p => p.Id == productId);
-        Save();
-    }
-
-    private void Save()
-    {
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            foreach (T product in Products)
+            if (IsProductNameExists(product.Name))
             {
-                string line = $"{product.Id},{product.Name},{product.Price},{product.Stock}";
-                writer.WriteLine(line);
+                throw new ArgumentException("Product with the same name already exists in stock.");
+            }
+            else
+            {
+                product.Id = Products.Count + 1;
+                Products.Add(product);
+                Save();
             }
         }
-    }
 
-    private List<T> LoadStock()
-    {
-        List<T> products = new List<T>();
-        if (File.Exists(filePath))
+        public void Update(int productId, T update)
         {
-            using (StreamReader reader = new StreamReader(filePath))
+            T product = Products.Find(p => p.Id == productId);
+
+            if (product != null)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                product.Name = update.Name;
+                product.Price = update.Price;
+                product.Stock = update.Stock;
+                Save();
+            }
+        }
+
+        public void Remove(int productId)
+        {
+            Products.RemoveAll(p => p.Id == productId);
+            Save();
+        }
+
+        private void Save()
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                foreach (T product in Products)
                 {
-                    string[] data = line.Split(',');
-
-                    int id = int.Parse(data[0]);
-                    string name = data[1];
-                    decimal price = decimal.Parse(data[2]);
-                    int stock = int.Parse(data[3]);
-
-                    T product = Activator.CreateInstance<T>();
-                    product.Id = id;
-                    product.Name = name;
-                    product.Price = price;
-                    product.Stock = stock;
-
-                    products.Add(product);
+                    string line = $"{product.Id},{product.Name},{product.Price},{product.Stock}";
+                    writer.WriteLine(line);
                 }
             }
         }
-        return products;
+
+        private List<T> LoadStock()
+        {
+            List<T> products = new List<T>();
+            if (File.Exists(filePath))
+            {
+                using (StreamReader reader = new StreamReader(filePath))
+                {
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        string[] data = line.Split(',');
+
+                        int id = int.Parse(data[0]);
+                        string name = data[1];
+                        decimal price = decimal.Parse(data[2]);
+                        int stock = int.Parse(data[3]);
+
+                        T product = Activator.CreateInstance<T>();
+                        product.Id = id;
+                        product.Name = name;
+                        product.Price = price;
+                        product.Stock = stock;
+
+                        products.Add(product);
+                    }
+                }
+            }
+            return products;
+        }
     }
-}
