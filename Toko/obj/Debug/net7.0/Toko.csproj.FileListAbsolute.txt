@@ -1,0 +1,15 @@
+C:\Users\ASUS\Music\ProjectLatihan\Toko\bin\Debug\net7.0\Toko.exe
+C:\Users\ASUS\Music\ProjectLatihan\Toko\bin\Debug\net7.0\Toko.deps.json
+C:\Users\ASUS\Music\ProjectLatihan\Toko\bin\Debug\net7.0\Toko.runtimeconfig.json
+C:\Users\ASUS\Music\ProjectLatihan\Toko\bin\Debug\net7.0\Toko.dll
+C:\Users\ASUS\Music\ProjectLatihan\Toko\bin\Debug\net7.0\Toko.pdb
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.csproj.AssemblyReference.cache
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.AssemblyInfoInputs.cache
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.AssemblyInfo.cs
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.dll
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\refint\Toko.dll
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.pdb
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\Toko.genruntimeconfig.cache
+C:\Users\ASUS\Music\ProjectLatihan\Toko\obj\Debug\net7.0\ref\Toko.dll
